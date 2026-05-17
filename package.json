@@ -1,0 +1,133 @@
+{
+  "name": "the-ai-code-completion",
+  "displayName": "The AI Code Completion",
+  "description": "AI-powered inline code completions using the DeepSeek FIM API",
+  "version": "0.1.0",
+  "publisher": "maickonn-castro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maickonn/the-ai-code-completion.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maickonn/the-ai-code-completion/issues"
+  },
+  "homepage": "https://github.com/maickonn/the-ai-code-completion#readme",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "keywords": [
+    "deepseek",
+    "fim",
+    "fill-in-the-middle",
+    "inline-completion",
+    "ai",
+    "code-completion",
+    "llm",
+    "autocomplete"
+  ],
+  "categories": [
+    "Programming Languages",
+    "Machine Learning"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "icon": "icon.png",
+  "contributes": {
+    "configuration": {
+      "title": "The AI Code Completion",
+      "properties": {
+        "theAICodeCompletion.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable AI completions"
+        },
+        "theAICodeCompletion.model": {
+          "type": "string",
+          "default": "deepseek-v4-flash",
+          "description": "Model ID for FIM completions"
+        },
+        "theAICodeCompletion.maxTokens": {
+          "type": "integer",
+          "default": 256,
+          "maximum": 4096,
+          "description": "Maximum completion tokens"
+        },
+        "theAICodeCompletion.debounceMs": {
+          "type": "integer",
+          "default": 500,
+          "description": "Debounce delay in milliseconds"
+        },
+        "theAICodeCompletion.maxContextFiles": {
+          "type": "integer",
+          "default": 5,
+          "description": "Number of open tabs to use as context (0 = disable)"
+        },
+        "theAICodeCompletion.temperature": {
+          "type": "number",
+          "default": 0.1,
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Sampling temperature"
+        },
+        "theAICodeCompletion.provider": {
+          "type": "string",
+          "default": "deepseek",
+          "enum": [
+            "deepseek"
+          ],
+          "description": "LLM provider for completions"
+        },
+        "theAICodeCompletion.timeoutMs": {
+          "type": "integer",
+          "default": 10000,
+          "minimum": 1000,
+          "maximum": 60000,
+          "description": "Request timeout in milliseconds"
+        },
+        "theAICodeCompletion.debug": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable debug output channel"
+        },
+        "theAICodeCompletion.stop": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "\\n\\n\\n"
+          ],
+          "description": "Stop sequences (use \\n for newline)"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "theAICodeCompletion.showOutput",
+        "title": "The AI Code Completion: Show Output"
+      },
+      {
+        "command": "theAICodeCompletion.setApiKey",
+        "title": "The AI Code Completion: Set API Key"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "clean": "node -e \"require('fs').rmSync('out',{recursive:true,force:true})\"",
+    "compile": "npm run clean && node esbuild.js",
+    "watch": "node esbuild.js --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.3"
+  }
+}
